@@ -45,5 +45,8 @@ void LoginPage::onLoginResult(bool success, const QString &errorMessage)
         ui->errorLabel->setText(errorMessage);
         ui->errorLabel->setVisible(true);
     }
-    ui->errorLabel->setVisible(false);
+    else
+    {
+        ui->errorLabel->setVisible(false);  // скрываем при успехе
+    }
 }
