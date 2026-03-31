@@ -15,18 +15,17 @@ RegisterPage::~RegisterPage()
 
 void RegisterPage::on_signUpButton_clicked()
 {
-
 }
 
 
 void RegisterPage::on_signInButton_clicked()
 {
-    emit backToLoginPage();
+    emit showLoginPage();
 }
 
 
 void RegisterPage::on_deleteAccountButton_clicked()
 {
-
+    emit showDeleteAccountPage();
 }
 

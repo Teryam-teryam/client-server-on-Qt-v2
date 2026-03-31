@@ -12,11 +12,11 @@ public:
     explicit LoginPage(QWidget *parent = nullptr);
     ~LoginPage();
 signals:
-    void loginRequested(const QString &login, const QString &password);
+    void loginRequested();
     void registerRequested();
-    void deleteAccountRequested();
-public slots:
-    void onLoginResult(bool success, const QString &errorMessage);
+    void showRegisterPage();
+    void showDeleteAccountPage();
+
 private slots:
     void on_signUpButton_clicked();
     void on_signInButton_clicked();

@@ -5,6 +5,7 @@
 #include <QStackedWidget>
 #include "loginpage.h"
 #include "registerpage.h"
+#include "deleteaccountpage.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Client; }
@@ -18,18 +19,22 @@ public:
     Client(QWidget *parent = nullptr);
     ~Client();
 private slots:
-    void on_LoginPageRequested(const QString &login, const QString &password);
-    void on_RegisterRequested();
-    void on_DeleteAccountRequested();
+    // Отправка запросов на сервер
+    void handleLoginRequested();
+    void handleRegisterRequested();
+    void handleDeleteAccountRequested();
 
+    // Переключение страниц
     void showLoginPage();
     void showRegisterPage();
+    void showDeleteAccountPage();
 private:
     void setupUi();
     Ui::Client *ui;
     QStackedWidget *m_stackedWidget;
     LoginPage *m_loginPage;
     RegisterPage *m_registerPage;
+    DeleteAccountPage *m_deleteAccountPage;
 
 
 };

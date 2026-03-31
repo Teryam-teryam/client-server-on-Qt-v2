@@ -1,3 +1,7 @@
+//Все сигналы для переключения страниц названы showXxxPage()
+//Сигналы для выполнения действий (отправка запросов на сервер) названы xxxRequested()
+//В главном окне слоты обработки действий - handleXxxRequest(), а для переключения страниц - showXxxPage()
+
 #include "client.h"
 #include "ui_client.h"
 #include <QMessageBox>
@@ -17,47 +21,56 @@ Client::~Client()
 
 void Client::setupUi()
 {
-    setWindowTitle("===setupUI===");
+    //setWindowTitle("===setupUI===");
     resize(500, 600);
 
     // Создаём стек
     m_stackedWidget = new QStackedWidget(this);
     setCentralWidget(m_stackedWidget);
+
     // Создаём страницы
     m_loginPage = new LoginPage(this);
     m_registerPage = new RegisterPage(this);
+    m_deleteAccountPage = new DeleteAccountPage(this);
+
     // Добавляем страницы в стек (порядок не важен, переключаем по указателю)
     m_stackedWidget->addWidget(m_loginPage);
     m_stackedWidget->addWidget(m_registerPage);
+    m_stackedWidget->addWidget(m_deleteAccountPage);
+
     // По умолчанию показываем страницу входа
     m_stackedWidget->setCurrentWidget(m_loginPage);
 
     // Подключаем сигналы от LoginPage
-    connect(m_loginPage, &LoginPage::loginRequested ,this, &Client::on_LoginPageRequested);
-    connect(m_loginPage, &LoginPage::registerRequested, this, &Client::showRegisterPage);
-    connect(m_loginPage, &LoginPage::deleteAccountRequested, this, &Client::on_DeleteAccountRequested);
+    connect(m_loginPage, &LoginPage::loginRequested ,this, &Client::handleLoginRequested);
+    connect(m_loginPage, &LoginPage::showRegisterPage, this, &Client::showRegisterPage);
+    connect(m_loginPage, &LoginPage::showDeleteAccountPage, this, &Client::showDeleteAccountPage);
+
     // Подключаем сигналы от RegisterPage
-    connect(m_registerPage, &RegisterPage::backToLoginPage, this, &Client::showLoginPage);
+    connect(m_registerPage, &RegisterPage::registerRequested, this, &Client::handleRegisterRequested);
+    connect(m_registerPage, &RegisterPage::showLoginPage, this, &Client::showLoginPage);
+    connect(m_registerPage, &RegisterPage::showDeleteAccountPage, this, &Client::showDeleteAccountPage);
+
+    // Подключаем сигналы от DeleteAccountPage
+    connect(m_deleteAccountPage, &DeleteAccountPage::deleteAccountRequested ,this, &Client::handleDeleteAccountRequested);
+    connect(m_deleteAccountPage, &DeleteAccountPage::showRegisterPage, this, &Client::showRegisterPage);
+    connect(m_deleteAccountPage, &DeleteAccountPage::showLoginPage, this, &Client::showLoginPage);
 }
-void Client::on_LoginPageRequested(const QString &login, const QString &password)
+void Client::handleRegisterRequested()
 {
 
 }
 
-void Client::on_RegisterRequested()
+void Client::handleLoginRequested()
 {
 
 }
 
-void Client::on_DeleteAccountRequested()
+void Client::handleDeleteAccountRequested()
 {
 
 }
-void Client::showLoginPage()
-{
-    m_stackedWidget->setCurrentWidget(m_loginPage);
-}
-void Client::showRegisterPage()
-{
-    m_stackedWidget->setCurrentWidget(m_registerPage);
-}
+void Client::showLoginPage()        {m_stackedWidget->setCurrentWidget(m_loginPage);}
+void Client::showRegisterPage()     {m_stackedWidget->setCurrentWidget(m_registerPage);}
+void Client::showDeleteAccountPage() {m_stackedWidget->setCurrentWidget(m_deleteAccountPage);}
+

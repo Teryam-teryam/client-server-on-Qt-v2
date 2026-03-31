@@ -14,11 +14,14 @@ public:
     ~RegisterPage();
 
 signals:
-    void backToLoginPage();
+    void registerRequested();
+    void showLoginPage();
+    void showDeleteAccountPage();
 private slots:
     void on_signUpButton_clicked();
     void on_signInButton_clicked();
     void on_deleteAccountButton_clicked();
+
 
 private:
     Ui::RegisterPage *ui;
