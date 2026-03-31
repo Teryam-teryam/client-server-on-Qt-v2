@@ -13,7 +13,8 @@ public:
     explicit RegisterPage(QWidget *parent = nullptr);
     ~RegisterPage();
 
-
+signals:
+    void backToLoginPage();
 private slots:
     void on_signUpButton_clicked();
     void on_signInButton_clicked();

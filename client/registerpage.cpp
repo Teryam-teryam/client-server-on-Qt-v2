@@ -21,7 +21,7 @@ void RegisterPage::on_signUpButton_clicked()
 
 void RegisterPage::on_signInButton_clicked()
 {
-
+    emit backToLoginPage();
 }
 
 
